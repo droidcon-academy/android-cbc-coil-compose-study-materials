@@ -1,2 +1,2 @@
 # Study materials and source code for **Droidcon Academy** course 
-> # Add Course Name 
+> # Coil Library: Guide to Handling Images in Android Jetpack Compose
