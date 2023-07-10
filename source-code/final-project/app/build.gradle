@@ -66,5 +66,9 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
     // Coil TODO 1
+    /**
+     * Add Coil dependency
+     * Internet permissions are not really part of the course...
+     */
     implementation("io.coil-kt:coil-compose:2.4.0")
 }
