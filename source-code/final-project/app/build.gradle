@@ -37,7 +37,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.3.2'
+        kotlinCompilerExtensionVersion '1.4.8'
     }
     packagingOptions {
         resources {
@@ -67,8 +67,10 @@ dependencies {
 
     // Coil TODO 1
     /**
-     * Add Coil dependency
-     * Internet permissions are not really part of the course...
+     * Coil handles loading images from the internet and caching  so you don't download an image several times.
+     * First
+     * Add Coil dependency.. do not forget Internet permissions. You're loading iamges from the internet
+     * show manifest file.
      */
     implementation("io.coil-kt:coil-compose:2.4.0")
 }
