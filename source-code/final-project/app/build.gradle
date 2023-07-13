@@ -65,12 +65,6 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
-    // Coil TODO 1
-    /**
-     * 
-     * First
-     * Add Coil dependency.. do not forget Internet permissions. You're loading iamges from the internet
-     * show manifest file.
-     */
+    // Coil
     implementation("io.coil-kt:coil-compose:2.4.0")
 }
