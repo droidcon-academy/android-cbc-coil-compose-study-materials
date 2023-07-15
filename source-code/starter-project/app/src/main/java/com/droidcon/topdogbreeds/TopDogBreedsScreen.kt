@@ -27,14 +27,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-/**
- * french bull dog: https://www.akc.org/wp-content/uploads/2021/05/French-Bulldog-puppy-head-portrait-outdoors.jpeg
- * Golden retriever:  https://www.vidavetcare.com/wp-content/uploads/sites/234/2022/04/golden-retriever-dog-breed-info.jpeg
- * German Shepherd boy: https://cdn.britannica.com/79/232779-050-6B0411D7/German-Shepherd-dog-Alsatian.jpg
- */
-
 const val DISK_CACHE_KEY = "dogsImageDisk"
 const val CONTENT_DESCRIPTION = "Top Dog Breed"
+
+// Dog breeds image urls
+const val FRENCH_BULL_DOG = "https://www.akc.org/wp-content/uploads/2021/05/French-Bulldog-puppy-head-portrait-outdoors.jpeg"
+const val GOLDEN_RETRIEVER = "https://www.vidavetcare.com/wp-content/uploads/sites/234/2022/04/golden-retriever-dog-breed-info.jpeg"
+const val GERMAN_SHEPHERD_BOY = "https://cdn.britannica.com/79/232779-050-6B0411D7/German-Shepherd-dog-Alsatian.jpg"
 
 @Preview
 @Composable
@@ -58,7 +57,7 @@ fun TopDogBreedsScreen(
         )
 
 
-//        val painter = rememberAsyncImagePainter(model ="https://cdn.britannica.com/79/232779-050-6B0411D7/German-Shepherd-dog-Alsatian.jpg")
+//        val painter = rememberAsyncImagePainter(model = GERMAN_SHEPHERD_BOY)
 //        val painterState = painter.state
 //        val transition = animateFloatAsState(
 //            targetValue = if (painterState is AsyncImagePainter.State.Success) 1f else 0f
