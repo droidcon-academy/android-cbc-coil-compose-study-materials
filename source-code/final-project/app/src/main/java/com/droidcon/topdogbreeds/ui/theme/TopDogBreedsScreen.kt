@@ -55,9 +55,12 @@ const val DISK_CACHE_KEY = "dogsImageDisk"
 const val CONTENT_DESCRIPTION = "Top Dog Breed"
 
 // Dog breeds image urls
-const val FRENCH_BULL_DOG = "https://www.akc.org/wp-content/uploads/2021/05/French-Bulldog-puppy-head-portrait-outdoors.jpeg"
-const val GOLDEN_RETRIEVER = "https://www.vidavetcare.com/wp-content/uploads/sites/234/2022/04/golden-retriever-dog-breed-info.jpeg"
-const val GERMAN_SHEPHERD_BOY = "https://cdn.britannica.com/79/232779-050-6B0411D7/German-Shepherd-dog-Alsatian.jpg"
+const val FRENCH_BULL_DOG =
+    "https://www.akc.org/wp-content/uploads/2021/05/French-Bulldog-puppy-head-portrait-outdoors.jpeg"
+const val GOLDEN_RETRIEVER =
+    "https://www.vidavetcare.com/wp-content/uploads/sites/234/2022/04/golden-retriever-dog-breed-info.jpeg"
+const val GERMAN_SHEPHERD_BOY =
+    "https://cdn.britannica.com/79/232779-050-6B0411D7/German-Shepherd-dog-Alsatian.jpg"
 
 
 @Preview
@@ -73,7 +76,7 @@ fun TopDogBreedsScreen(
         verticalArrangement = Arrangement.spacedBy(48.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
 
-    ) {
+        ) {
         Text(
             text = "Top Dog Breeds",
             style = TextStyle(
@@ -99,9 +102,6 @@ fun TopDogBreedsScreen(
             contentScale = ContentScale.FillBounds,
             contentDescription = CONTENT_DESCRIPTION
         )
-
-
-
         SubcomposeAsyncImage(
             model = GOLDEN_RETRIEVER,
             contentDescription = CONTENT_DESCRIPTION
@@ -129,7 +129,6 @@ fun TopDogBreedsScreen(
                         contentDescription = "Empty State"
                     )
                 }
-
             }
         }
 
@@ -165,9 +164,6 @@ fun TopDogBreedsScreen(
                 .alpha(min(1f, transition / .2f)),
             colorFilter = ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(transition) })
         )
-
-
-
     }
 }
 

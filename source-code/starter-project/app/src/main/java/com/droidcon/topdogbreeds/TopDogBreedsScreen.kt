@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -43,7 +45,8 @@ fun TopDogBreedsScreen(
     Column(
         modifier = modifier
             .padding(16.dp)
-            .fillMaxSize(),
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -57,25 +60,32 @@ fun TopDogBreedsScreen(
         )
 
 
-//        val painter = rememberAsyncImagePainter(model = GERMAN_SHEPHERD_BOY)
-//        val painterState = painter.state
+//       val painterWithTransition =
+//            rememberAsyncImagePainter(model = FRENCH_BULL_DOG)
+//        val stateWithTransition = painterWithTransition.state
 //        val transition = animateFloatAsState(
-//            targetValue = if (painterState is AsyncImagePainter.State.Success) 1f else 0f
+//            targetValue = if (stateWithTransition is AsyncImagePainter.State.Success) 1f else 0f
 //        ).value
 //
-//        if (painterState is AsyncImagePainter.State.Loading) {
-//
+//        if (stateWithTransition is AsyncImagePainter.State.Loading) {
+//            LoadingAnimation()
 //        }
 //        Image(
-//            painter = painter,
+//            painter = painterWithTransition,
 //            contentDescription = null,
 //            modifier = Modifier
+//                /**
+//                 * Column has unbound height
+//                 * Specify the height for the image so that compose can resolve its size
+//                 * and call [AsyncImagePainter.onDraw]
+//                 */
+//                .height(200.dp)
 //                .scale(.8f + (.5f * transition))
 //                .graphicsLayer { rotationX = (1f - transition) * 40f }
 //                .alpha(min(1f, transition / .2f)),
+//            colorFilter = ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(transition) })
 //        )
     }
-
 }
 
 @Composable
