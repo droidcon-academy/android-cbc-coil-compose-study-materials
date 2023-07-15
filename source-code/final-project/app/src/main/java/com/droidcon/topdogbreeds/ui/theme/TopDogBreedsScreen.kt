@@ -1,5 +1,6 @@
 package com.droidcon.topdogbreeds.ui.theme
 
+import android.util.Log
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
@@ -11,10 +12,13 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -50,6 +54,12 @@ import java.lang.Float.min
 const val DISK_CACHE_KEY = "dogsImageDisk"
 const val CONTENT_DESCRIPTION = "Top Dog Breed"
 
+// Dog breeds image urls
+const val FRENCH_BULL_DOG = "https://www.akc.org/wp-content/uploads/2021/05/French-Bulldog-puppy-head-portrait-outdoors.jpeg"
+const val GOLDEN_RETRIEVER = "https://www.vidavetcare.com/wp-content/uploads/sites/234/2022/04/golden-retriever-dog-breed-info.jpeg"
+const val GERMAN_SHEPHERD_BOY = "https://cdn.britannica.com/79/232779-050-6B0411D7/German-Shepherd-dog-Alsatian.jpg"
+
+
 @Preview
 @Composable
 fun TopDogBreedsScreen(
@@ -58,9 +68,11 @@ fun TopDogBreedsScreen(
     Column(
         modifier = modifier
             .padding(16.dp)
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.spacedBy(48.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+
     ) {
         Text(
             text = "Top Dog Breeds",
@@ -70,29 +82,28 @@ fun TopDogBreedsScreen(
                 fontWeight = FontWeight.SemiBold
             )
         )
-        val painter2 =
-            rememberAsyncImagePainter(model = "https://www.akc.org/wp-content/uploads/2021/05/French-Bulldog-puppy-head-portrait-outdoors.jpeg")
-        val state = painter2.state
-        val transition = animateFloatAsState(
-            targetValue = if (state is AsyncImagePainter.State.Success) 1f else 0f
-        ).value
-
-        if (state is AsyncImagePainter.State.Loading) {
-            LoadingAnimation()
-        }
-        Image(
-            painter = painter2,
-            contentDescription = null,
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(GERMAN_SHEPHERD_BOY)
+                .diskCacheKey(DISK_CACHE_KEY)
+                .networkCachePolicy(CachePolicy.ENABLED)
+                .diskCachePolicy(CachePolicy.ENABLED)
+                .memoryCachePolicy(CachePolicy.DISABLED)
+                .build(),
+            placeholder = painterResource(id = R.drawable.ic_downloading),
+            error = painterResource(id = R.drawable.ic_error),
+            alignment = Alignment.BottomEnd,
             modifier = Modifier
-                .scale(.8f + (.5f * transition))
-                .graphicsLayer { rotationX = (1f - transition) * 40f }
-                .alpha(min(1f, transition / .2f)),
-            colorFilter = ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(transition) })
+                .size(width = 220.dp, height = 200.dp)
+                .clip(CircleShape),
+            contentScale = ContentScale.FillBounds,
+            contentDescription = CONTENT_DESCRIPTION
         )
 
 
+
         SubcomposeAsyncImage(
-            model = "https://www.vidavetcare.com/wp-content/uploads/sites/234/2022/04/golden-retriever-dog-breed-info.jpeg",
+            model = GOLDEN_RETRIEVER,
             contentDescription = CONTENT_DESCRIPTION
         ) {
             val state = painter.state
@@ -123,29 +134,39 @@ fun TopDogBreedsScreen(
         }
 
         val imageRequest = ImageRequest.Builder(LocalContext.current)
-            .data("https://cdn.britannica.com/79/232779-050-6B0411D7/German-Shepherd-dog-Alsatian.jpg")
+            .data(GERMAN_SHEPHERD_BOY)
             .size(Size.ORIGINAL)
             .build()
         val painter = rememberAsyncImagePainter(model = imageRequest)
         Image(painter = painter, contentDescription = "German Shepherd Dog")
 
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data("https://www.akc.org/wp-content/uploads/2021/05/French-Bulldog-puppy-head-portrait-outdoors.jpeg")
-                .diskCacheKey(DISK_CACHE_KEY)
-                .networkCachePolicy(CachePolicy.ENABLED)
-                .diskCachePolicy(CachePolicy.ENABLED)
-                .memoryCachePolicy(CachePolicy.DISABLED)
-                .build(),
-            placeholder = painterResource(id = R.drawable.ic_downloading),
-            error = painterResource(id = R.drawable.ic_error),
-            alignment = Alignment.BottomEnd,
+        val painterWithTransition =
+            rememberAsyncImagePainter(model = FRENCH_BULL_DOG)
+        val stateWithTransition = painterWithTransition.state
+        val transition = animateFloatAsState(
+            targetValue = if (stateWithTransition is AsyncImagePainter.State.Success) 1f else 0f
+        ).value
+
+        if (stateWithTransition is AsyncImagePainter.State.Loading) {
+            LoadingAnimation()
+        }
+        Image(
+            painter = painterWithTransition,
+            contentDescription = null,
             modifier = Modifier
-                .size(width = 220.dp, height = 200.dp)
-                .clip(CircleShape),
-            contentScale = ContentScale.FillBounds,
-            contentDescription = CONTENT_DESCRIPTION
+                /**
+                 * Column has unbound height
+                 * Specify the height for the image so that compose can resolve its size
+                 * and call [AsyncImagePainter.onDraw]
+                 */
+                .height(200.dp)
+                .scale(.8f + (.5f * transition))
+                .graphicsLayer { rotationX = (1f - transition) * 40f }
+                .alpha(min(1f, transition / .2f)),
+            colorFilter = ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(transition) })
         )
+
+
 
     }
 }
