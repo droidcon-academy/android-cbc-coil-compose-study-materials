@@ -1,6 +1,5 @@
-package com.droidcon.topdogbreeds.ui.theme
+package com.droidcon.topdogbreeds
 
-import android.util.Log
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
@@ -48,7 +47,6 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.CachePolicy
 import coil.request.ImageRequest
 import coil.size.Size
-import com.droidcon.topdogbreeds.R
 import java.lang.Float.min
 
 const val DISK_CACHE_KEY = "dogsImageDisk"
