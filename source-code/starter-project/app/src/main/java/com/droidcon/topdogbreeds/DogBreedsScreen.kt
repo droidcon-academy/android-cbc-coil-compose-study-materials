@@ -12,9 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -39,14 +37,13 @@ const val GERMAN_SHEPHERD_BOY = "https://cdn.britannica.com/79/232779-050-6B0411
 
 @Preview
 @Composable
-fun TopDogBreedsScreen(
+fun DogBreedsScreen(
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
             .padding(16.dp)
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
+            .fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -58,6 +55,9 @@ fun TopDogBreedsScreen(
                 fontWeight = FontWeight.SemiBold
             )
         )
+
+
+
 
 
 //       val painterWithTransition =

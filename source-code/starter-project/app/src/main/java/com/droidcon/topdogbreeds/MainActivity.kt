@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier,
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    TopDogBreedsScreen()
+                    DogBreedsScreen()
                 }
             }
         }
