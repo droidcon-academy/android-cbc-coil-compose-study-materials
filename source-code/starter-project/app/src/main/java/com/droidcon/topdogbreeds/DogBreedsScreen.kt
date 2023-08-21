@@ -2,48 +2,30 @@ package com.droidcon.topdogbreeds
 
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.ColorMatrix
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
-import coil.compose.AsyncImagePainter
-import coil.compose.SubcomposeAsyncImage
-import coil.compose.SubcomposeAsyncImageContent
-import coil.compose.rememberAsyncImagePainter
-import coil.request.CachePolicy
-import coil.request.ImageRequest
-import java.lang.Float.min
 
 const val DISK_CACHE_KEY = "dogsImageDisk"
 const val CONTENT_DESCRIPTION = "Top Dog Breed"
@@ -77,23 +59,6 @@ fun DogBreedsScreen(
                 fontWeight = FontWeight.SemiBold
             )
         )
-        val imageRequest =
-            ImageRequest.Builder(LocalContext.current)
-                .data(FRENCH_BULL_DOG)
-                .diskCacheKey(DISK_CACHE_KEY)
-                .diskCachePolicy(CachePolicy.ENABLED)
-                .memoryCachePolicy(CachePolicy.DISABLED)
-                .networkCachePolicy(CachePolicy.ENABLED)
-                .build()
-        AsyncImage(
-            model = imageRequest,
-            contentDescription = CONTENT_DESCRIPTION,
-            placeholder = painterResource(
-                id = R.drawable.ic_downloading
-            ),
-            error = painterResource(id = R.drawable.ic_error)
-        )
-
 
 //        val painterState = painter.state
 //        val transition = animateFloatAsState(
@@ -125,7 +90,8 @@ fun LoadingAnimation() {
         animationSpec = infiniteRepeatable(
             animation = tween(2000),
             repeatMode = RepeatMode.Restart,
-        ), label = ""
+        ),
+        label = ""
     ).value
 
     Box(
