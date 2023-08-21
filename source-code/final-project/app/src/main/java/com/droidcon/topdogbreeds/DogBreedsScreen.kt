@@ -51,6 +51,7 @@ import java.lang.Float.min
 
 const val DISK_CACHE_KEY = "dogsImageDisk"
 const val CONTENT_DESCRIPTION = "Top Dog Breed"
+const val ERROR_PLACEHOLDER = "Error Occurred"
 
 // Dog breeds image urls
 const val FRENCH_BULL_DOG =
@@ -63,7 +64,7 @@ const val GERMAN_SHEPHERD_BOY =
 
 @Preview
 @Composable
-fun TopDogBreedsScreen(
+fun DogBreedsScreen(
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -93,11 +94,6 @@ fun TopDogBreedsScreen(
                 .build(),
             placeholder = painterResource(id = R.drawable.ic_downloading),
             error = painterResource(id = R.drawable.ic_error),
-            alignment = Alignment.BottomEnd,
-            modifier = Modifier
-                .size(width = 220.dp, height = 200.dp)
-                .clip(CircleShape),
-            contentScale = ContentScale.FillBounds,
             contentDescription = CONTENT_DESCRIPTION
         )
         SubcomposeAsyncImage(
@@ -113,7 +109,7 @@ fun TopDogBreedsScreen(
                 is AsyncImagePainter.State.Error -> {
                     Image(
                         painter = painterResource(id = R.drawable.ic_downloading),
-                        contentDescription = "Empty State"
+                        contentDescription = ERROR_PLACEHOLDER
                     )
                 }
 
@@ -141,7 +137,8 @@ fun TopDogBreedsScreen(
             rememberAsyncImagePainter(model = FRENCH_BULL_DOG)
         val stateWithTransition = painterWithTransition.state
         val transition = animateFloatAsState(
-            targetValue = if (stateWithTransition is AsyncImagePainter.State.Success) 1f else 0f
+            targetValue = if (stateWithTransition is AsyncImagePainter.State.Success) 1f else 0f,
+            label = ""
         ).value
 
         if (stateWithTransition is AsyncImagePainter.State.Loading) {
@@ -167,14 +164,14 @@ fun TopDogBreedsScreen(
 
 @Composable
 fun LoadingAnimation() {
-    val animation = rememberInfiniteTransition()
+    val animation = rememberInfiniteTransition(label = "")
     val progress = animation.animateFloat(
         initialValue = 0f,
         targetValue = 1f,
         animationSpec = infiniteRepeatable(
             animation = tween(2000),
             repeatMode = RepeatMode.Restart,
-        )
+        ), label = ""
     ).value
 
     Box(
